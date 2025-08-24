@@ -14,7 +14,7 @@ function callbackLista(event){
     console.log(event.type);
 }
 
-imagensLista.addEventListener('click', callbackLista);
+//imagensLista.addEventListener('click', callbackLista);
 
 const linkExterno = document.querySelector('a[href^="http"]');
 
@@ -48,3 +48,21 @@ function handleKeyboard(event){
 }
 
 window.addEventListener('keudown', handleKeyboard);
+
+function handleKeyBoard(event){
+    if(event.key === 'a'){
+        document.body.classList.toggle('azul');
+    }
+}
+
+window.addEventListener('keydown', handleKeyBoard);
+
+const imgs = document.querySelectorAll('img');
+
+function handleImg(event){
+    console.log(event.currentTarget);    
+}
+
+imgs.forEach((img) => {
+    img.addEventListener('click', handleImg);
+})

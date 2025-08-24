@@ -1,53 +1,49 @@
-//Verifique a distancia da primeira imagem
-//em relação ao topo da página 
+//Quando o usuario clicar nos links internos do site,
+//adicione a classe ativo ao item clicado e remova dos
+//demais itens caso eles possuam a mesma. Previna
+//o comportamento padrão desses links
 
-const img = document.querySelector('img');
-const imgTop = img.offsetTop;
+const links = document.querySelectorAll('a');
 
-console.log(imgTop);
+function vericarClasses(event){
+    event.preventDefault();
 
-//Retorne a soma da largura de todas as imagens
-
-function somaImagens(){
-    const imagens = document.querySelectorAll('img');
-    let soma = 0;
-    imagens.forEach((imagem) => {
-        soma += imagem.offsetWidth;  
-    })
-    console.log(soma);
+    links.forEach((link) => {
+        link.classList.remove('ativo');
+    });
+    
+    event.currentTarget.classList.add('ativo');
 }
 
-window.onload = function(){
-    somaImagens();
+links.forEach((link) => {
+    link.addEventListener('click',vericarClasses);
+})
+//Selecione todos os elementos do site começando a partir do body,
+//ao clique mostre exatamente quais elementos estao sendo clicados
+
+const todosElementos = document.querySelectorAll('body *');
+
+function elementosClicados(event){
+    console.log(event.currentTarget);//apenas trocar aqui pelo remove no lugar do console;
 }
 
-
-//Verifique se os links da página possuem
-//o minimo recomendado para telas utilizadas
-//com o dedo. (48px/48px de acordo com o google)
-
-const link = document.querySelectorAll('a');
-
-link.forEach((link) => {
-    const linkWidth = link.offsetWidth;
-    const linkHeight = link.offsetHeight;
-
-    if(linkWidth >= 48 && linkHeight >= 48){
-        console.log(link, 'Possui Acessibilidade');
-    }else{
-        console.log(link, 'Não Possui Boa acessibilidade');
-    }
+todosElementos.forEach((elemento) => {
+    elemento.addEventListener('click', elementosClicados)
 })
 
-console.log(link);
+
+//Utilizando o codigo anterior, ao inves de mostrar no console,
+//remova o elemento que esta sendo clicado, o metodo remove() remove um elemento
 
 
-//Se o browser for menos que 720px
-//adicione a classe menu-mobile ao menu
 
-const browserSmall = window.matchMedia('(max-width: 720px)').matches;
+//Se o usuario clicar na tela (t), aumente todo o texto do site.
 
-if(browserSmall){
-    const menu = document.querySelector('.menu');
-    menu.classList.add('menu-mobile');
+function clicarNoT(event){
+    console.log(event.key)
+    if(event.key === 't'){
+        document.documentElement.classList.toggle('textoMaior');
+    }
 }
+
+window.addEventListener('keydown', clicarNoT);
